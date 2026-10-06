@@ -1,0 +1,356 @@
+/* ==========================================================
+   base.css - shared by every page
+   Font, theme variables, reset, and reusable components.
+   ========================================================== */
+
+/* ---------- Font (self-hosted Patrick Hand, OFL licence) ---------- */
+@font-face {
+  font-family: "Patrick Hand";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/PatrickHand-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Patrick Hand";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/PatrickHand-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ---------- Theme ---------- */
+:root {
+  --weekend: #2f7d55;
+  --weekday: #050505;
+  --busy: #b3262e;
+  --done: #1fa5ad;
+
+  --gold: #d4af37;
+  --gold-light: #f2d479;
+  --gold-dim: #a98c2d;
+  --cream: #f5e6b8;
+
+  --bg: #0a0a0a;
+  --panel-bg: #14110a;
+  --field-bg: #1d1810;
+
+  --wobble-lg: 18px 6px 20px 8px / 8px 20px 6px 18px;
+  --wobble-sm: 12px 4px 14px 5px / 5px 14px 4px 12px;
+
+  --glow: 0 0 14px rgba(212, 175, 55, 0.25);
+  --focus-glow: 0 0 10px rgba(242, 212, 121, 0.45);
+  --rainbow: linear-gradient(90deg, #ff2d55, #ff9500, #ffee00, #34ff6a, #00e5ff, #3b6bff, #c04bff, #ff2d55);
+}
+
+/* ---------- Reset and base ---------- */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Patrick Hand", "Comic Sans MS", cursive;
+  font-size: 18px;
+  background: var(--bg) center / cover no-repeat fixed;
+  color: var(--cream);
+}
+
+body.has-bg {
+  --panel-bg: rgba(20, 17, 10, 0.86);
+}
+
+button, input, textarea, select {
+  font-family: inherit;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+:focus-visible {
+  outline: 3px solid var(--gold-light);
+  outline-offset: 2px;
+}
+
+/* ---------- Panels: the gold wobbly boxes ---------- */
+.panel,
+.greeting-header,
+.calendar-panel,
+.notes-panel,
+.timer-panel,
+.settings-panel {
+  border: 3px solid var(--gold);
+  border-radius: var(--wobble-lg);
+  background: var(--panel-bg);
+  box-shadow: var(--glow);
+}
+
+/* ---------- Headings ---------- */
+.gold-title {
+  margin: 0;
+  font-weight: 400;
+  color: var(--gold-light);
+}
+
+/* ---------- Small gold buttons ("chips") ---------- */
+.bg-controls button,
+.page-link,
+.pick-row button,
+.chip {
+  border: 2px solid var(--gold);
+  background: rgba(10, 10, 10, 0.9);
+  color: var(--gold-light);
+  border-radius: var(--wobble-sm);
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.bg-controls button:hover,
+.page-link:hover,
+.pick-row button:hover:not(:disabled),
+.chip:hover:not(:disabled),
+.page-link.current {
+  background: var(--gold);
+  color: #0a0a0a;
+}
+
+.bg-controls button:disabled,
+.pick-row button:disabled,
+.chip:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.page-link {
+  display: inline-block;
+  padding: 3px 14px;
+}
+
+.page-link.disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.chip {
+  padding: 2px 12px;
+}
+
+/* ---------- Big buttons ---------- */
+.big-btn {
+  border: 3px solid var(--gold-dim);
+  border-radius: var(--wobble-sm);
+  background: var(--gold);
+  color: #0a0a0a;
+  font-size: 1.4rem;
+  padding: 8px 28px;
+  min-width: 120px;
+  cursor: pointer;
+  transition: transform 0.1s ease, background-color 0.1s ease;
+}
+
+.big-btn:hover {
+  background: var(--gold-light);
+  transform: scale(1.05) rotate(-0.8deg);
+}
+
+.big-btn.secondary {
+  background: transparent;
+  color: var(--gold-light);
+  border-color: var(--gold);
+}
+
+.big-btn.secondary:hover {
+  background: rgba(212, 175, 55, 0.18);
+}
+
+.big-btn.armed {
+  background: var(--busy);
+  border-color: #ff8a8a;
+  color: #fff;
+}
+
+/* ---------- Form fields ---------- */
+.field,
+#notesText,
+#taskInput,
+#searchInput,
+#repeatSelect,
+.focus-task input,
+.stepper input,
+.form-dialog input[type="text"],
+.form-dialog textarea {
+  border: 2px solid var(--gold);
+  border-radius: var(--wobble-sm);
+  background: var(--field-bg);
+  color: var(--cream);
+  font-size: 1.1rem;
+}
+
+.field:focus,
+#notesText:focus,
+#taskInput:focus,
+#searchInput:focus,
+#repeatSelect:focus,
+.focus-task input:focus,
+.stepper input:focus,
+.form-dialog input:focus,
+.form-dialog textarea:focus {
+  outline: none;
+  border-color: var(--gold-light);
+  box-shadow: var(--focus-glow);
+}
+
+::placeholder {
+  color: var(--gold-dim);
+  opacity: 1;
+}
+
+/* ---------- Dialogs ---------- */
+.dialog {
+  width: min(560px, 92vw);
+  max-height: 92vh;
+  overflow-y: auto;
+  padding: 22px;
+  border: 3px solid var(--gold);
+  border-radius: var(--wobble-lg);
+  background: #14110a;
+  color: var(--cream);
+  box-shadow: 0 0 40px rgba(212, 175, 55, 0.35);
+  font-family: inherit;
+}
+
+.dialog::backdrop {
+  background: rgba(0, 0, 0, 0.82);
+}
+
+.dialog h2 {
+  margin: 0 0 8px;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--gold-light);
+}
+
+.dialog-close {
+  position: absolute;
+  top: 6px;
+  right: 12px;
+  border: none;
+  background: transparent;
+  color: var(--gold-light);
+  font-size: 2rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.dialog-actions .big-btn {
+  min-width: 0;
+  font-size: 1.15rem;
+  padding: 6px 18px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.form-error {
+  color: #ff8a8a;
+}
+
+/* ---------- Toast (replaces blocked alert() popups) ---------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 100;
+  max-width: min(520px, 90vw);
+  padding: 8px 18px;
+  border: 2px solid var(--gold);
+  border-radius: var(--wobble-sm);
+  background: #14110a;
+  color: var(--gold-light);
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.8);
+}
+
+/* ---------- RGB effect shared by timer, dates and calendar hover ---------- */
+@keyframes rgbSweep {
+  from { background-position: 0% 50%; }
+  to   { background-position: 300% 50%; }
+}
+
+@keyframes rgbHue {
+  from { filter: hue-rotate(0deg) drop-shadow(0 0 12px rgba(255, 255, 255, 0.35)); }
+  to   { filter: hue-rotate(360deg) drop-shadow(0 0 12px rgba(255, 255, 255, 0.35)); }
+}
+
+@keyframes rgbHueCell {
+  from { filter: hue-rotate(0deg) drop-shadow(0 0 2px rgba(0, 0, 0, 0.9)); }
+  to   { filter: hue-rotate(360deg) drop-shadow(0 0 2px rgba(0, 0, 0, 0.9)); }
+}
+
+/* ---------- Pixel-art image links (moon, landscape) ---------- */
+.image-link {
+  display: block;
+  width: 64px;
+  height: 64px;
+  border: 3px solid var(--gold);
+  border-radius: var(--wobble-sm);
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.35);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.image-link img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  image-rendering: pixelated;
+}
+
+.image-link:hover {
+  transform: scale(1.1) rotate(-3deg);
+  box-shadow: 0 0 16px rgba(242, 212, 121, 0.6);
+}
+
+/* ---------- Page navigation and background buttons ---------- */
+.page-nav {
+  position: fixed;
+  bottom: 8px;
+  left: 8px;
+  z-index: 10;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.bg-controls {
+  position: fixed;
+  bottom: 8px;
+  right: 8px;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: calc(100vw - 16px);
+  gap: 6px;
+}
+
+.bg-controls button {
+  padding: 3px 12px;
+  font-size: 0.85rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

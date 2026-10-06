@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Grand Hall</title>
+<link rel="icon" href="assets/gallery-btn.png" type="image/png">
+<link rel="preload" href="assets/fonts/PatrickHand-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/museum.css">
+</head>
+<body class="gallery-page">
+
+<nav class="gallery-nav" aria-label="Pages">
+  <a href="index.html" class="page-link">&larr; Planner</a>
+  <a href="focus.html" class="page-link">Focus Mode</a>
+</nav>
+
+<header class="museum-header">
+  <p class="sign-small">Welcome to</p>
+  <h1>The Grand Hall</h1>
+  <p class="sign-sub">Two museums, one entrance. Choose a door.</p>
+  <div class="sign-rule"></div>
+</header>
+
+<main class="lobby">
+  <a class="door" href="museum.html?wing=updates">
+    <div class="door-arch">
+      <div class="door-glow"></div>
+      <div class="door-emblem">U</div>
+    </div>
+    <div class="plaque">
+      <div class="plaque-title">The Update Museum</div>
+      <div class="plaque-meta">Every change made to this website</div>
+    </div>
+  </a>
+
+  <a class="door" href="museum.html?wing=projects">
+    <div class="door-arch">
+      <div class="door-glow"></div>
+      <div class="door-emblem">P</div>
+    </div>
+    <div class="plaque">
+      <div class="plaque-title">The Museum of Projects</div>
+      <div class="plaque-meta">Websites built elsewhere</div>
+    </div>
+  </a>
+</main>
+
+<footer class="floor" aria-hidden="true"></footer>
+
+</body>
+</html>

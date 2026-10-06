@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A lock-in focus timer with adjustable focus and rest periods.">
+<title>Focus Mode</title>
+<link rel="icon" href="assets/focus-btn.gif" type="image/gif">
+<link rel="preload" href="assets/fonts/PatrickHand-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/focus.css">
+</head>
+<body class="phase-focus">
+
+<div class="bg-controls">
+  <input type="file" id="bgInput" accept="image/*" hidden>
+  <button id="bgChangeBtn" type="button">Change background</button>
+  <button id="bgResetBtn" type="button" hidden>Reset</button>
+</div>
+
+<main class="focus-app">
+
+  <header class="focus-top">
+    <a href="index.html" class="page-link" id="backLink">&larr; Planner</a>
+    <h1>Focus Mode</h1>
+    <div class="session-count" id="sessionCount">Sessions today: 0</div>
+  </header>
+
+  <section class="timer-panel" aria-label="Timer">
+    <div class="phase-label" id="phaseLabel">Focus</div>
+
+    <div class="time-display" id="timeDisplay" role="timer">25:00</div>
+
+    <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+
+    <div class="focus-task">
+      <input type="text" id="focusTask" list="todayTasks" placeholder="What are you locking in on?" aria-label="What are you focusing on">
+      <datalist id="todayTasks"></datalist>
+    </div>
+
+    <div class="timer-buttons">
+      <button type="button" id="startBtn" class="big-btn">Start</button>
+      <button type="button" id="resetBtn" class="big-btn secondary">Reset</button>
+      <button type="button" id="skipBtn" class="big-btn secondary">Skip</button>
+    </div>
+
+    <div class="lock-note" id="lockNote" hidden>Locked in. Pause to leave or change settings.</div>
+  </section>
+
+  <section class="settings-panel" id="settingsPanel" aria-label="Timer settings">
+    <h2>Timer settings</h2>
+
+    <div class="setting-row">
+      <label for="focusMinutes">Focus (minutes)</label>
+      <div class="stepper">
+        <button type="button" class="step-btn" data-target="focusMinutes" data-delta="-5">-5</button>
+        <button type="button" class="step-btn" data-target="focusMinutes" data-delta="-1">-</button>
+        <input type="number" id="focusMinutes" min="1" max="240" value="25">
+        <button type="button" class="step-btn" data-target="focusMinutes" data-delta="1">+</button>
+        <button type="button" class="step-btn" data-target="focusMinutes" data-delta="5">+5</button>
+      </div>
+    </div>
+
+    <div class="setting-row">
+      <label for="restMinutes">Rest (minutes)</label>
+      <div class="stepper">
+        <button type="button" class="step-btn" data-target="restMinutes" data-delta="-5">-5</button>
+        <button type="button" class="step-btn" data-target="restMinutes" data-delta="-1">-</button>
+        <input type="number" id="restMinutes" min="1" max="60" value="5">
+        <button type="button" class="step-btn" data-target="restMinutes" data-delta="1">+</button>
+        <button type="button" class="step-btn" data-target="restMinutes" data-delta="5">+5</button>
+      </div>
+    </div>
+
+    <div class="presets">
+      <span>Quick picks:</span>
+      <button type="button" class="preset-btn" data-focus="25" data-rest="5">25 / 5</button>
+      <button type="button" class="preset-btn" data-focus="50" data-rest="10">50 / 10</button>
+      <button type="button" class="preset-btn" data-focus="90" data-rest="20">90 / 20</button>
+    </div>
+  </section>
+
+</main>
+
+<script src="js/shared.js"></script>
+<script src="js/planner-core.js"></script>
+<script src="js/focus.js"></script>
+</body>
+</html>

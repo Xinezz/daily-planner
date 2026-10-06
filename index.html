@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A gold and black daily planner with a flip calendar, notes, tasks and a focus timer.">
+<title>Daily Planner</title>
+<link rel="icon" href="assets/notes-icon.gif" type="image/gif">
+<link rel="preload" href="assets/fonts/PatrickHand-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/planner.css">
+</head>
+<body>
+
+<nav class="page-nav" aria-label="Other pages">
+  <a href="gallery.html" class="image-link" aria-label="Gallery" title="Gallery"><img src="assets/gallery-btn.png" alt="Gallery"></a>
+  <a href="focus.html" class="image-link" aria-label="Focus Mode" title="Focus Mode"><img src="assets/focus-btn.gif" alt="Focus Mode"></a>
+</nav>
+
+<div class="bg-controls">
+  <input type="file" id="bgInput" accept="image/*" hidden>
+  <button id="settingsBtn" type="button">Settings</button>
+  <button id="bgChangeBtn" type="button">Change background</button>
+  <button id="bgResetBtn" type="button" hidden>Reset</button>
+</div>
+
+<main class="app">
+
+  <header class="greeting-header" id="greetingHeader">
+    <h1 id="greetingText">Good Afternoon</h1>
+    <div class="dtd-row">
+      <div class="dtd-box" id="dateBox">--</div>
+      <div class="dtd-box" id="timeBox">--</div>
+      <div class="dtd-box" id="dayBox">--</div>
+    </div>
+  </header>
+
+  <section class="display-picture" id="displayPicture" role="button" tabindex="0" aria-label="Display picture. Press to choose a picture.">
+    <input type="file" id="dpInput" accept="image/*" hidden>
+    <img id="dpImage" alt="" hidden>
+    <span id="dpPlaceholder">display picture<br><small>(click to upload)</small></span>
+  </section>
+
+  <section class="calendar-panel" id="calendarPanel" aria-label="Calendar">
+    <div class="legend-row">
+      <div class="legend">
+        <span class="legend-item"><span class="swatch weekend"></span>weekend</span>
+        <span class="legend-item"><span class="swatch weekday"></span>weekday</span>
+        <span class="legend-item"><span class="swatch busy"></span>busy</span>
+        <span class="legend-item"><span class="swatch done"></span>done</span>
+      </div>
+      <div class="search-box">
+        <input type="search" id="searchInput" placeholder="Search notes and tasks" aria-label="Search notes and tasks" autocomplete="off">
+        <ul class="search-results" id="searchResults" hidden></ul>
+      </div>
+    </div>
+
+    <div class="weekday-labels" aria-hidden="true">
+      <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+    </div>
+
+    <div class="flip-container">
+      <div class="calendar-flip" id="calendarFlip">
+        <h2 id="monthLabel" aria-live="polite">Calendar</h2>
+        <div class="calendar-grid" id="calendarGrid"></div>
+      </div>
+    </div>
+
+    <div class="calendar-nav-bottom">
+      <button id="prevMonth" class="nav-btn nav-btn-prev" type="button" aria-label="Previous month"></button>
+      <button id="todayBtn" class="chip" type="button">Today</button>
+      <button id="nextMonth" class="nav-btn nav-btn-next" type="button" aria-label="Next month"></button>
+      <button id="agendaBtn" class="chip" type="button">Agenda</button>
+    </div>
+  </section>
+
+  <aside class="notes-panel" aria-label="Notes and tasks">
+    <h2 id="notesHeading"><img src="assets/notes-icon.gif" alt="" class="notes-icon">Notes (plan)</h2>
+    <div class="notes-date" id="notesDate">Select a day</div>
+    <textarea id="notesText" placeholder="Notes for this day..." aria-label="Notes for this day"></textarea>
+
+    <h3>Tasks</h3>
+    <div class="task-input-row">
+      <input type="text" id="taskInput" placeholder="Add a task..." aria-label="New task">
+      <select id="repeatSelect" aria-label="Repeat">
+        <option value="">Once</option>
+        <option value="daily">Every day</option>
+        <option value="weekdays">Weekdays</option>
+        <option value="weekly">Every week</option>
+        <option value="monthly">Every month</option>
+      </select>
+      <button id="addTaskBtn" type="button" aria-label="Add task"></button>
+    </div>
+    <ul id="taskList"></ul>
+  </aside>
+
+</main>
+
+<dialog id="agendaDialog" class="dialog agenda-dialog">
+  <button type="button" class="dialog-close" data-close="agendaDialog" aria-label="Close">&times;</button>
+  <h2>Agenda</h2>
+  <div id="agendaBody"></div>
+</dialog>
+
+<dialog id="settingsDialog" class="dialog settings-dialog">
+  <button type="button" class="dialog-close" data-close="settingsDialog" aria-label="Close">&times;</button>
+  <h2>Settings</h2>
+
+  <section class="set-group">
+    <h3>Calendar background</h3>
+    <label class="switch-row"><span>Show calendar background</span>
+      <input type="checkbox" id="optCalOn">
+    </label>
+    <label class="range-row"><span>Transparency</span>
+      <input type="range" id="optCalTrans" min="0" max="95" step="5">
+      <output id="calTransVal">0%</output>
+    </label>
+    <label class="switch-row"><span>Different background for each month</span>
+      <input type="checkbox" id="optPerMonth">
+    </label>
+    <div class="pick-row">
+      <input type="file" id="calFile" accept="image/*" hidden>
+      <button type="button" id="calPickBtn">Choose picture</button>
+      <button type="button" id="calClearBtn">Remove picture</button>
+    </div>
+    <div class="set-status" id="calStatus"></div>
+  </section>
+
+  <section class="set-group">
+    <h3>Notes background</h3>
+    <label class="switch-row"><span>Show notes background</span>
+      <input type="checkbox" id="optNotesOn">
+    </label>
+    <label class="range-row"><span>Transparency</span>
+      <input type="range" id="optNotesTrans" min="0" max="95" step="5">
+      <output id="notesTransVal">0%</output>
+    </label>
+    <div class="pick-row">
+      <input type="file" id="notesFile" accept="image/*" hidden>
+      <button type="button" id="notesPickBtn">Choose picture</button>
+      <button type="button" id="notesClearBtn">Remove picture</button>
+    </div>
+    <div class="set-status" id="notesStatus"></div>
+  </section>
+
+  <section class="set-group">
+    <h3>Backup</h3>
+    <p class="set-note">Save everything (tasks, notes, pictures, museum entries, settings) to one file, or restore from one. Keep the file safe, for example in your GitHub repository.</p>
+    <div class="pick-row">
+      <input type="file" id="importFile" accept="application/json,.json" hidden>
+      <button type="button" id="exportBtn">Export backup</button>
+      <button type="button" id="importBtn">Import backup</button>
+    </div>
+    <div class="set-status" id="backupStatus"></div>
+  </section>
+
+  <div class="form-error" id="settingsMsg" hidden></div>
+  <div class="dialog-actions"><button type="button" class="big-btn" data-close="settingsDialog">Done</button></div>
+</dialog>
+
+<script src="js/shared.js"></script>
+<script src="js/planner-core.js"></script>
+<script src="js/planner.js"></script>
+</body>
+</html>

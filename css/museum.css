@@ -1,0 +1,418 @@
+/* ==========================================================
+   museum.css - Grand Hall (gallery.html) and the two museums
+   (museum.html?wing=updates / projects)
+   ========================================================== */
+
+.gallery-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.12), transparent 60%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.015) 0 2px, transparent 2px 6px),
+    linear-gradient(#17110a, #0c0905 70%);
+}
+
+.gallery-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px 16px 0;
+}
+
+/* ---------- Sign at the top ---------- */
+.museum-header {
+  padding: 18px 16px 6px;
+  text-align: center;
+}
+
+.sign-small {
+  margin: 0;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  font-size: 1rem;
+  color: var(--gold-dim);
+}
+
+.museum-header h1 {
+  margin: 4px 0;
+  font-size: clamp(2.2rem, 7vw, 4.2rem);
+  font-weight: 400;
+  color: var(--gold-light);
+  text-shadow: 0 2px 0 #6e5410, 0 0 24px rgba(212, 175, 55, 0.4);
+}
+
+.sign-sub {
+  margin: 0;
+  font-size: 1.15rem;
+  color: var(--cream);
+  opacity: 0.8;
+}
+
+.sign-rule {
+  width: min(340px, 70%);
+  height: 3px;
+  margin: 14px auto 0;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* ---------- The hall and its exhibits ---------- */
+.gallery-hall {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 70px 56px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 70px 24px 50px;
+}
+
+.empty-hall {
+  font-size: 1.4rem;
+  color: var(--gold-dim);
+}
+
+.exhibit {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.size-a { width: 250px; --ratio: 4 / 5; }
+.size-b { width: 330px; --ratio: 5 / 4; }
+.size-c { width: 280px; --ratio: 1 / 1; }
+
+.lamp {
+  position: absolute;
+  top: -34px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 9px;
+  border-radius: 6px;
+  background: linear-gradient(#f2d479, #8a6a16);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
+}
+
+.lamp::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -14px;
+  width: 4px;
+  height: 14px;
+  transform: translateX(-50%);
+  background: #8a6a16;
+}
+
+.spot {
+  position: absolute;
+  top: -26px;
+  left: 50%;
+  z-index: 0;
+  width: 150%;
+  height: calc(100% + 40px);
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, rgba(255, 232, 160, 0.26), transparent 80%);
+  clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%);
+  pointer-events: none;
+  transition: filter 0.3s ease;
+}
+
+.exhibit:hover .spot {
+  filter: brightness(1.5);
+}
+
+.frame {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 3px;
+  cursor: zoom-in;
+  background: linear-gradient(135deg, #f6dc86 0%, #b8902a 28%, #7c5c12 50%, #e9c75a 72%, #a07c1c 100%);
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, 0.75),
+    inset 0 0 0 2px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 5px rgba(255, 240, 180, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.frame:hover,
+.frame:focus-visible {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow:
+    0 20px 34px rgba(0, 0, 0, 0.8),
+    0 0 26px rgba(242, 212, 121, 0.5),
+    inset 0 0 0 2px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 5px rgba(255, 240, 180, 0.35);
+}
+
+.mat {
+  padding: 14px;
+  background: #efe6cc;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* The picture area takes the shape of the picture (set from JS) */
+.canvas {
+  width: 100%;
+  aspect-ratio: var(--ratio);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #1d1a30;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.85);
+}
+
+.canvas img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+img.pixel {
+  image-rendering: pixelated;
+  object-fit: contain;
+  padding: 12%;
+}
+
+.blank-canvas {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  color: #fff7d6;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.plaque {
+  position: relative;
+  z-index: 1;
+  width: 82%;
+  margin-top: 18px;
+  padding: 7px 10px;
+  border-radius: 3px;
+  background: linear-gradient(#ecd07a, #b8902a);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6), inset 0 0 0 2px rgba(255, 245, 200, 0.45);
+  color: #1a1306;
+  text-align: center;
+}
+
+.plaque-title {
+  font-size: 1.25rem;
+  line-height: 1.15;
+}
+
+.plaque-meta {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* ---------- Rope, donate button and floor ---------- */
+.donate-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 10px 16px 28px;
+}
+
+.rope {
+  flex: 1;
+  max-width: 220px;
+  height: 14px;
+  border-radius: 8px;
+  background: repeating-linear-gradient(135deg, #7a1f2b 0 6px, #4a0f19 6px 12px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6), 0 0 0 2px var(--gold-dim);
+}
+
+.floor {
+  height: 90px;
+  border-top: 6px solid var(--gold-dim);
+  background:
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.35) 0 2px, transparent 2px 120px),
+    linear-gradient(#2b1d0e, #120b05);
+  box-shadow: inset 0 14px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* ---------- Zoomed view ---------- */
+.view-frame {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 12px;
+  background: linear-gradient(135deg, #f6dc86, #b8902a 30%, #7c5c12 50%, #e9c75a 75%, #a07c1c);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7), inset 0 0 0 2px rgba(0, 0, 0, 0.4);
+}
+
+.view-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 12px solid #efe6cc;
+  background: #1d1a30;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.85);
+}
+
+.view-canvas.natural {
+  display: block;
+  aspect-ratio: auto;
+}
+
+.view-canvas.natural img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(468px, calc(92vw - 120px));
+  max-height: 55vh;
+  object-fit: contain;
+}
+
+.view-canvas.natural img.pixel {
+  width: min(300px, 100%);
+  padding: 0;
+}
+
+.view-plaque {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.view-meta {
+  margin-bottom: 8px;
+  color: var(--gold);
+}
+
+.view-plaque p {
+  margin: 0 0 14px;
+  font-size: 1.15rem;
+  line-height: 1.4;
+}
+
+/* ---------- Add / edit form ---------- */
+.form-dialog form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-dialog label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 1.05rem;
+  color: var(--gold);
+}
+
+.form-dialog input[type="text"],
+.form-dialog textarea {
+  padding: 7px 10px;
+}
+
+.form-two {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 12px;
+}
+
+.paste-zone {
+  padding: 12px;
+  border: 2px dashed var(--gold-dim);
+  border-radius: var(--wobble-sm);
+  text-align: center;
+  font-size: 1rem;
+  color: var(--gold-dim);
+}
+
+.paste-zone:focus {
+  outline: none;
+  border-color: var(--gold-light);
+  color: var(--gold-light);
+}
+
+.paste-zone img {
+  display: block;
+  max-width: 100%;
+  max-height: 170px;
+  margin: 0 auto;
+  border: 3px solid var(--gold);
+}
+
+/* ---------- Grand Hall doors ---------- */
+.lobby {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 60px;
+  padding: 50px 24px 60px;
+}
+
+.door {
+  width: 270px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+}
+
+.door-arch {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 340px;
+  overflow: hidden;
+  border: 12px solid var(--gold);
+  border-bottom: none;
+  border-radius: 135px 135px 0 0;
+  background: linear-gradient(#0c0905, #1a1408);
+  box-shadow: 0 0 0 4px #6e5410, 0 14px 28px rgba(0, 0, 0, 0.75);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.door-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 85%, rgba(255, 220, 120, 0.55), transparent 70%);
+  opacity: 0.55;
+  transition: opacity 0.25s ease;
+}
+
+.door-emblem {
+  position: relative;
+  font-size: 6rem;
+  color: var(--gold-light);
+  text-shadow: 0 0 24px rgba(242, 212, 121, 0.6);
+}
+
+.door:hover .door-arch,
+.door:focus-visible .door-arch {
+  transform: translateY(-6px);
+  box-shadow: 0 0 0 4px #6e5410, 0 0 36px rgba(242, 212, 121, 0.55), 0 18px 30px rgba(0, 0, 0, 0.8);
+}
+
+.door:hover .door-glow,
+.door:focus-visible .door-glow {
+  opacity: 1;
+}
+
+.door .plaque {
+  width: 100%;
+  margin-top: 0;
+  border-radius: 0 0 3px 3px;
+}

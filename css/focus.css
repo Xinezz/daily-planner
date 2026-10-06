@@ -1,0 +1,195 @@
+/* ==========================================================
+   focus.css - the Focus Mode page (focus.html)
+   ========================================================== */
+
+.focus-app {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.focus-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.focus-top h1 {
+  margin: 0;
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: var(--gold-light);
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.55);
+}
+
+.session-count {
+  min-width: 130px;
+  text-align: right;
+  font-size: 1.05rem;
+  color: var(--gold);
+}
+
+.timer-panel,
+.settings-panel {
+  padding: 22px 24px;
+  text-align: center;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.phase-rest .timer-panel {
+  border-color: var(--done);
+  box-shadow: 0 0 18px rgba(31, 165, 173, 0.35);
+}
+
+.phase-label {
+  font-size: 1.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.phase-rest .phase-label {
+  color: var(--done);
+}
+
+.time-display {
+  font-size: clamp(4.5rem, 20vw, 9rem);
+  line-height: 1.05;
+  color: var(--gold-light);
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.6);
+  font-variant-numeric: tabular-nums;
+}
+
+.phase-rest .time-display {
+  color: #8fe3e8;
+}
+
+.progress {
+  height: 16px;
+  margin: 8px 0 18px;
+  border: 2px solid var(--gold-dim);
+  border-radius: var(--wobble-sm);
+  background: var(--field-bg);
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 0;
+  height: 100%;
+  background: var(--gold);
+  transition: width 0.25s linear;
+}
+
+.phase-rest .progress-fill {
+  background: var(--done);
+}
+
+/* While the timer runs: sweeping rainbow digits and bar */
+.running .time-display {
+  background-image: var(--rainbow);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  animation: rgbSweep 4s linear infinite, rgbHue 12s linear infinite;
+}
+
+.running .progress-fill {
+  background-image: var(--rainbow);
+  background-size: 300% 100%;
+  animation: rgbSweep 4s linear infinite, rgbHue 12s linear infinite;
+}
+
+.focus-task input {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.timer-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.lock-note {
+  margin-top: 14px;
+  font-size: 1.05rem;
+  color: var(--gold-dim);
+}
+
+/* ---------- Timer settings ---------- */
+.settings-panel h2 {
+  margin: 0 0 14px;
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: var(--gold-light);
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+  text-align: left;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stepper input {
+  width: 72px;
+  padding: 6px 4px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.step-btn,
+.preset-btn {
+  min-width: 38px;
+  padding: 4px 10px;
+  border: 2px solid var(--gold);
+  border-radius: var(--wobble-sm);
+  background: transparent;
+  color: var(--gold-light);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.step-btn:hover,
+.preset-btn:hover {
+  background: var(--gold);
+  color: #0a0a0a;
+}
+
+.step-btn:disabled,
+.preset-btn:disabled,
+.stepper input:disabled {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+}
+
+.presets {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+  color: var(--gold);
+}
