@@ -9,7 +9,7 @@
   flex-direction: column;
   overflow-x: hidden;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.12), transparent 60%),
+    radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--gold) 12%, transparent), transparent 60%),
     repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.015) 0 2px, transparent 2px 6px),
     linear-gradient(#17110a, #0c0905 70%);
 }
@@ -40,7 +40,7 @@
   font-size: clamp(2.2rem, 7vw, 4.2rem);
   font-weight: 400;
   color: var(--gold-light);
-  text-shadow: 0 2px 0 #6e5410, 0 0 24px rgba(212, 175, 55, 0.4);
+  text-shadow: 0 2px 0 #6e5410, 0 0 24px color-mix(in srgb, var(--gold) 40%, transparent);
 }
 
 .sign-sub {
@@ -65,8 +65,10 @@
   justify-content: center;
   align-items: flex-end;
   gap: 70px 56px;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  overflow-x: clip;
   padding: 70px 24px 50px;
 }
 
@@ -80,6 +82,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 100%;
+}
+
+@media (max-width: 600px) {
+  .gallery-hall {
+    gap: 64px 24px;
+    padding: 70px 12px 40px;
+  }
+
+  .dialog {
+    padding: 16px;
+  }
 }
 
 .size-a { width: 250px; --ratio: 4 / 5; }
@@ -148,7 +162,7 @@
   transform: translateY(-4px) scale(1.02);
   box-shadow:
     0 20px 34px rgba(0, 0, 0, 0.8),
-    0 0 26px rgba(242, 212, 121, 0.5),
+    0 0 26px color-mix(in srgb, var(--gold-light) 50%, transparent),
     inset 0 0 0 2px rgba(0, 0, 0, 0.4),
     inset 0 0 0 5px rgba(255, 240, 180, 0.35);
 }
@@ -397,13 +411,13 @@ img.pixel {
   position: relative;
   font-size: 6rem;
   color: var(--gold-light);
-  text-shadow: 0 0 24px rgba(242, 212, 121, 0.6);
+  text-shadow: 0 0 24px color-mix(in srgb, var(--gold-light) 60%, transparent);
 }
 
 .door:hover .door-arch,
 .door:focus-visible .door-arch {
   transform: translateY(-6px);
-  box-shadow: 0 0 0 4px #6e5410, 0 0 36px rgba(242, 212, 121, 0.55), 0 18px 30px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 0 4px #6e5410, 0 0 36px color-mix(in srgb, var(--gold-light) 55%, transparent), 0 18px 30px rgba(0, 0, 0, 0.8);
 }
 
 .door:hover .door-glow,

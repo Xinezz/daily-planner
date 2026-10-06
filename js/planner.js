@@ -605,6 +605,7 @@
   $("settingsBtn").addEventListener("click", () => {
     settingsMessage("");
     $("backupStatus").textContent = "";
+    refreshAccentUI();
     refreshSettingsUI();
     $("settingsDialog").showModal();
   });
@@ -729,6 +730,41 @@
     notesBg = "";
     applyNotesBg();
     refreshSettingsUI();
+  });
+
+  /* ---------- Outline (accent) color ---------- */
+
+  function refreshAccentUI() {
+    const current = Theme.current();
+    $("accentPicker").value = current;
+    $("accentSwatches").querySelectorAll(".accent-swatch").forEach((swatch) => {
+      swatch.setAttribute("aria-pressed", String(swatch.dataset.hex === current));
+    });
+  }
+
+  Theme.PRESETS.forEach((preset) => {
+    const swatch = document.createElement("button");
+    swatch.type = "button";
+    swatch.className = "accent-swatch";
+    swatch.dataset.hex = preset.hex;
+    swatch.style.background = preset.hex;
+    swatch.title = preset.name;
+    swatch.setAttribute("aria-label", preset.name);
+    swatch.addEventListener("click", () => {
+      Theme.set(preset.hex);
+      refreshAccentUI();
+    });
+    $("accentSwatches").appendChild(swatch);
+  });
+
+  $("accentPicker").addEventListener("input", (event) => {
+    Theme.set(event.target.value);
+    refreshAccentUI();
+  });
+
+  $("accentReset").addEventListener("click", () => {
+    Theme.reset();
+    refreshAccentUI();
   });
 
   /* ---------- Backup: export and import ---------- */

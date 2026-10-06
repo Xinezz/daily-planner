@@ -41,8 +41,8 @@
   --wobble-lg: 18px 6px 20px 8px / 8px 20px 6px 18px;
   --wobble-sm: 12px 4px 14px 5px / 5px 14px 4px 12px;
 
-  --glow: 0 0 14px rgba(212, 175, 55, 0.25);
-  --focus-glow: 0 0 10px rgba(242, 212, 121, 0.45);
+  --glow: 0 0 14px color-mix(in srgb, var(--gold) 25%, transparent);
+  --focus-glow: 0 0 10px color-mix(in srgb, var(--gold-light) 45%, transparent);
   --rainbow: linear-gradient(90deg, #ff2d55, #ff9500, #ffee00, #34ff6a, #00e5ff, #3b6bff, #c04bff, #ff2d55);
 }
 
@@ -163,7 +163,7 @@ button, input, textarea, select {
 }
 
 .big-btn.secondary:hover {
-  background: rgba(212, 175, 55, 0.18);
+  background: color-mix(in srgb, var(--gold) 18%, transparent);
 }
 
 .big-btn.armed {
@@ -218,7 +218,7 @@ button, input, textarea, select {
   border-radius: var(--wobble-lg);
   background: #14110a;
   color: var(--cream);
-  box-shadow: 0 0 40px rgba(212, 175, 55, 0.35);
+  box-shadow: 0 0 40px color-mix(in srgb, var(--gold) 35%, transparent);
   font-family: inherit;
 }
 
@@ -304,7 +304,7 @@ button, input, textarea, select {
   border: 3px solid var(--gold);
   border-radius: var(--wobble-sm);
   overflow: hidden;
-  box-shadow: 0 0 10px rgba(212, 175, 55, 0.35);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--gold) 35%, transparent);
   transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 
@@ -317,14 +317,14 @@ button, input, textarea, select {
 
 .image-link:hover {
   transform: scale(1.1) rotate(-3deg);
-  box-shadow: 0 0 16px rgba(242, 212, 121, 0.6);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--gold-light) 60%, transparent);
 }
 
 /* ---------- Page navigation and background buttons ---------- */
 .page-nav {
   position: fixed;
-  bottom: 8px;
-  left: 8px;
+  bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+  left: calc(8px + env(safe-area-inset-left, 0px));
   z-index: 10;
   display: flex;
   align-items: flex-end;
@@ -333,8 +333,8 @@ button, input, textarea, select {
 
 .bg-controls {
   position: fixed;
-  bottom: 8px;
-  right: 8px;
+  bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+  right: calc(8px + env(safe-area-inset-right, 0px));
   z-index: 10;
   display: flex;
   flex-wrap: wrap;
@@ -346,6 +346,45 @@ button, input, textarea, select {
 .bg-controls button {
   padding: 3px 12px;
   font-size: 0.85rem;
+}
+
+/* ---------- Touch screens ---------- */
+button, a, select, input, textarea, summary {
+  touch-action: manipulation;
+}
+
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (pointer: coarse) {
+  .bg-controls button,
+  .page-link,
+  .chip,
+  .pick-row button,
+  .step-btn,
+  .preset-btn {
+    min-height: 44px;
+  }
+
+  .bg-controls button,
+  .chip {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  #searchInput,
+  #repeatSelect,
+  #addTaskBtn {
+    min-height: 44px;
+  }
+
+  .dialog-close {
+    width: 44px;
+    height: 44px;
+    top: 2px;
+    right: 6px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

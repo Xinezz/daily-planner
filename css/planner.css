@@ -99,6 +99,16 @@
   pointer-events: none;
 }
 
+/* Where supported, use the frame image as a stencil so it takes the outline color */
+@supports (-webkit-mask-box-image: url("../assets/picture-frame.png")) {
+  .display-picture::after {
+    border: 0;
+    border-image: none;
+    background: var(--gold);
+    -webkit-mask-box-image: url("../assets/picture-frame.png") 28 / 28px stretch;
+  }
+}
+
 /* ---------- Calendar panel ---------- */
 .calendar-panel {
   grid-column: 1;
@@ -189,7 +199,7 @@
 
 .search-results button:hover,
 .search-results button:focus-visible {
-  background: rgba(212, 175, 55, 0.2);
+  background: color-mix(in srgb, var(--gold) 20%, transparent);
 }
 
 .search-results .hit-date {
@@ -271,7 +281,7 @@
   justify-content: space-between;
   min-height: 56px;
   padding: 6px 8px;
-  border: 2px solid rgba(212, 175, 55, 0.55);
+  border: 2px solid color-mix(in srgb, var(--gold) 55%, transparent);
   border-radius: var(--wobble-sm);
   background: var(--cell-fill);
   color: var(--cream);
@@ -317,26 +327,32 @@
   font-size: 0.85rem;
 }
 
-/* RGB hover: moving rainbow outline and rainbow date number */
-.day-cell:not(.empty):hover {
-  transform: scale(1.04) rotate(-0.6deg);
-  border-color: transparent;
-  background:
-    linear-gradient(var(--cell-fill), var(--cell-fill)) padding-box,
-    var(--rainbow) border-box;
-  background-size: 100% 100%, 300% 100%;
-  animation: rgbSweep 1.5s linear infinite;
+/* RGB hover: moving rainbow outline and rainbow date number (mouse only, so taps don't get stuck) */
+@media (hover: hover) {
+  .day-cell:not(.empty):hover {
+    transform: scale(1.04) rotate(-0.6deg);
+    border-color: transparent;
+    background:
+      linear-gradient(var(--cell-fill), var(--cell-fill)) padding-box,
+      var(--rainbow) border-box;
+    background-size: 100% 100%, 300% 100%;
+    animation: rgbSweep 1.5s linear infinite;
+  }
+
+  .day-cell:not(.empty):hover .day-number {
+    width: fit-content;
+    background-image: var(--rainbow);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: rgbSweep 1.5s linear infinite, rgbHueCell 4s linear infinite;
+  }
 }
 
-.day-cell:not(.empty):hover .day-number {
-  width: fit-content;
-  background-image: var(--rainbow);
-  background-size: 300% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  animation: rgbSweep 1.5s linear infinite, rgbHueCell 4s linear infinite;
+.day-cell:not(.empty):active {
+  transform: scale(0.96);
 }
 
 /* Calendar bottom bar: arrows, Today, Agenda */
@@ -640,6 +656,42 @@
   color: var(--gold-dim);
 }
 
+.swatch-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 6px 0 8px;
+}
+
+.accent-swatch {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 3px solid transparent;
+  border-radius: var(--wobble-sm);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.accent-swatch:hover {
+  transform: scale(1.12);
+}
+
+.accent-swatch[aria-pressed="true"] {
+  border-color: #fff;
+  box-shadow: 0 0 0 2px #14110a, 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.range-row input[type="color"] {
+  width: 56px;
+  height: 32px;
+  padding: 0;
+  border: 2px solid var(--gold);
+  border-radius: var(--wobble-sm);
+  background: transparent;
+  cursor: pointer;
+}
+
 .set-note {
   margin: 0 0 6px;
   font-size: 1rem;
@@ -690,4 +742,55 @@
 
   .search-box { margin-left: 0; width: 100%; }
   #searchInput { width: 100%; }
+}
+
+/* Phones: date, time and day wrap into two rows instead of squeezing */
+@media (max-width: 400px) {
+  .dtd-row {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .dtd-box {
+    flex: 1 1 calc(50% - 6px);
+    min-width: 0;
+    padding: 6px 4px;
+    font-size: 1.05rem;
+  }
+
+  .greeting-header,
+  .calendar-panel,
+  .notes-panel {
+    padding: 12px 12px;
+  }
+}
+
+/* ---------- Touch screens: bigger tap targets ---------- */
+@media (pointer: coarse) {
+  .nav-btn {
+    width: 48px;
+    height: 48px;
+  }
+
+  #addTaskBtn {
+    width: 44px;
+    height: 44px;
+  }
+
+  #taskList .task-action {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  #taskList input[type="checkbox"],
+  .agenda-day input[type="checkbox"],
+  .switch-row input[type="checkbox"] {
+    width: 26px;
+    height: 26px;
+  }
+
+  .accent-swatch {
+    width: 40px;
+    height: 40px;
+  }
 }

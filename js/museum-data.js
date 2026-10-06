@@ -143,6 +143,16 @@ const UPDATE_SEEDS = [
     glyph: "www",
     bg: "linear-gradient(135deg, #17110a, #3a1c71, #d4af37)",
   },
+  {
+    id: "up-15-outline-color",
+    title: "Pick Your Color",
+    year: "Oct 2026",
+    medium: "Outline color",
+    description: "The gold outlines, headings and buttons can now be any color. Pick a preset or a custom color in Settings, and every page follows. Backups include your choice.",
+    link: "index.html",
+    glyph: "RGB",
+    bg: "linear-gradient(135deg, #e8638f, #2ec4d6, #8fd14f)",
+  },
 ];
 
 const WINGS = {

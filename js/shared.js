@@ -1,5 +1,12 @@
 /* shared.js - small helpers used by every page. Loaded before page scripts. */
 
+// Lets the site be installed on a phone and opened offline (see sw.js)
+if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  });
+}
+
 const Store = {
   read(key, fallback) {
     try {
