@@ -5,6 +5,7 @@
 
 .gallery-page {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
@@ -280,6 +281,14 @@ img.pixel {
   box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.85);
 }
 
+.view-canvas:not(.natural) {
+  width: min(420px, calc(92vw - 90px));
+}
+
+.view-canvas:not(.natural) .blank-canvas {
+  font-size: clamp(3rem, 14vw, 6rem);
+}
+
 .view-canvas.natural {
   display: block;
   aspect-ratio: auto;
@@ -383,41 +392,60 @@ img.pixel {
   text-decoration: none;
 }
 
+/* Each door is the pixel-art ornate frame; the doorway glows through its picture hole.
+   The hole sits 14% / 17.5% / 14% / 18.75% in from the frame's top / right / bottom / left. */
 .door-arch {
+  --hole: 14% 17.5% 14% 18.75%;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 340px;
-  overflow: hidden;
-  border: 12px solid var(--gold);
-  border-bottom: none;
-  border-radius: 135px 135px 0 0;
+  aspect-ratio: 80 / 98;
+  filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.75));
+  transition: filter 0.25s ease, transform 0.25s ease;
+}
+
+.door-arch::before {
+  content: "";
+  position: absolute;
+  inset: var(--hole);
   background: linear-gradient(#0c0905, #1a1408);
-  box-shadow: 0 0 0 4px #6e5410, 0 14px 28px rgba(0, 0, 0, 0.75);
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  background-size: 100% 100%;
+  image-rendering: pixelated;
+}
+
+.door-updates::before {
+  background-image: url("../assets/door-updates.png");
+}
+
+.door-projects::before {
+  background-image: url("../assets/door-projects.png");
+}
+
+.door-arch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("../assets/ornate-frame.png") center / 100% 100% no-repeat;
+  image-rendering: pixelated;
+  pointer-events: none;
 }
 
 .door-glow {
   position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 50% 85%, rgba(255, 220, 120, 0.55), transparent 70%);
-  opacity: 0.55;
+  inset: var(--hole);
+  background: radial-gradient(ellipse at 50% 30%, rgba(255, 230, 150, 0.35), transparent 70%);
+  opacity: 0;
   transition: opacity 0.25s ease;
-}
-
-.door-emblem {
-  position: relative;
-  font-size: 6rem;
-  color: var(--gold-light);
-  text-shadow: 0 0 24px color-mix(in srgb, var(--gold-light) 60%, transparent);
 }
 
 .door:hover .door-arch,
 .door:focus-visible .door-arch {
   transform: translateY(-6px);
-  box-shadow: 0 0 0 4px #6e5410, 0 0 36px color-mix(in srgb, var(--gold-light) 55%, transparent), 0 18px 30px rgba(0, 0, 0, 0.8);
+  filter:
+    drop-shadow(0 0 18px color-mix(in srgb, var(--gold-light) 55%, transparent))
+    drop-shadow(0 18px 20px rgba(0, 0, 0, 0.8));
 }
 
 .door:hover .door-glow,
@@ -426,7 +454,44 @@ img.pixel {
 }
 
 .door .plaque {
-  width: 100%;
-  margin-top: 0;
-  border-radius: 0 0 3px 3px;
+  width: 82%;
+  margin-top: 14px;
+}
+
+.sfx-toggle {
+  margin-left: auto;
+  font-family: inherit;
+}
+
+/* Phones: no stuck hover lift/glow on frames and doors after a tap; a press-in instead */
+@media (hover: none) {
+  .exhibit:hover .spot {
+    filter: none;
+  }
+
+  .frame:hover:not(:focus-visible) {
+    transform: none;
+    box-shadow:
+      0 14px 28px rgba(0, 0, 0, 0.75),
+      inset 0 0 0 2px rgba(0, 0, 0, 0.4),
+      inset 0 0 0 5px rgba(255, 240, 180, 0.35);
+  }
+
+  .door:hover:not(:focus-visible) .door-arch {
+    transform: none;
+    filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.75));
+  }
+
+  .door:hover:not(:focus-visible) .door-glow {
+    opacity: 0;
+  }
+
+  .frame:active,
+  .door:active .door-arch {
+    transform: scale(0.97);
+  }
+
+  .door:active .door-glow {
+    opacity: 1;
+  }
 }

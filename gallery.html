@@ -15,8 +15,18 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/museum.css">
 <script src="js/theme.js"></script>
+<script src="js/loader.js"></script>
 </head>
 <body class="gallery-page">
+
+<div class="loader" id="loader" role="progressbar" aria-label="Loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+  <img class="loader-icon" src="assets/notes-icon.gif" alt="">
+  <div class="loader-title">Loading</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+  <div class="loader-pct">0%</div>
+  <div class="loader-tip" id="loaderTip">Tip: choose a door to step inside a museum.</div>
+</div>
+<noscript><style>.loader { display: none; }</style></noscript>
 
 <nav class="gallery-nav" aria-label="Pages">
   <a href="index.html" class="page-link">&larr; Planner</a>
@@ -32,9 +42,8 @@
 
 <main class="lobby">
   <a class="door" href="museum.html?wing=updates">
-    <div class="door-arch">
+    <div class="door-arch door-updates">
       <div class="door-glow"></div>
-      <div class="door-emblem">U</div>
     </div>
     <div class="plaque">
       <div class="plaque-title">The Update Museum</div>
@@ -43,9 +52,8 @@
   </a>
 
   <a class="door" href="museum.html?wing=projects">
-    <div class="door-arch">
+    <div class="door-arch door-projects">
       <div class="door-glow"></div>
-      <div class="door-emblem">P</div>
     </div>
     <div class="plaque">
       <div class="plaque-title">The Museum of Projects</div>
@@ -56,5 +64,6 @@
 
 <footer class="floor" aria-hidden="true"></footer>
 
+<script src="js/sfx.js"></script>
 </body>
 </html>

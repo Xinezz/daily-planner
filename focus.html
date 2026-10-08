@@ -16,8 +16,18 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/focus.css">
 <script src="js/theme.js"></script>
+<script src="js/loader.js"></script>
 </head>
 <body class="phase-focus">
+
+<div class="loader" id="loader" role="progressbar" aria-label="Loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+  <img class="loader-icon" src="assets/notes-icon.gif" alt="">
+  <div class="loader-title">Loading</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+  <div class="loader-pct">0%</div>
+  <div class="loader-tip" id="loaderTip">Tip: the timer glows in rainbow colours while you are locked in.</div>
+</div>
+<noscript><style>.loader { display: none; }</style></noscript>
 
 <div class="bg-controls">
   <input type="file" id="bgInput" accept="image/*" hidden>

@@ -2,7 +2,7 @@
    Strategy: always try the network first (so updates show up), and fall back to the saved copy when offline.
    Bump CACHE_NAME when the list of files below changes. */
 
-const CACHE_NAME = "daily-planner-v1";
+const CACHE_NAME = "daily-planner-v5";
 
 const FILES = [
   "./",
@@ -16,12 +16,14 @@ const FILES = [
   "css/focus.css",
   "css/museum.css",
   "js/theme.js",
+  "js/loader.js",
   "js/shared.js",
   "js/planner-core.js",
   "js/planner.js",
   "js/focus.js",
   "js/museum-data.js",
   "js/museum.js",
+  "js/sfx.js",
   "assets/fonts/PatrickHand-latin.woff2",
   "assets/fonts/PatrickHand-latin-ext.woff2",
   "assets/add-btn.png",
@@ -30,6 +32,9 @@ const FILES = [
   "assets/focus-btn.gif",
   "assets/gallery-btn.png",
   "assets/notes-icon.gif",
+  "assets/ornate-frame.png",
+  "assets/door-updates.png",
+  "assets/door-projects.png",
   "assets/picture-frame.png",
   "assets/icons/icon-192.png",
   "assets/icons/icon-512.png",

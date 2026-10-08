@@ -49,12 +49,28 @@
 /* ---------- Reset and base ---------- */
 * { box-sizing: border-box; }
 
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 body {
   margin: 0;
   font-family: "Patrick Hand", "Comic Sans MS", cursive;
   font-size: 18px;
-  background: var(--bg) center / cover no-repeat fixed;
+  background-color: var(--bg);
   color: var(--cream);
+}
+
+/* The chosen page picture sits on its own fixed layer. (background-attachment: fixed
+   zooms and jitters on iPhones, so it is not used.) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--page-bg, none) center / cover no-repeat;
+  pointer-events: none;
 }
 
 body.has-bg {
@@ -212,7 +228,9 @@ button, input, textarea, select {
 .dialog {
   width: min(560px, 92vw);
   max-height: 92vh;
+  max-height: 92dvh;
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 22px;
   border: 3px solid var(--gold);
   border-radius: var(--wobble-lg);
@@ -391,5 +409,136 @@ button, a {
   * {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* ---------- Loading screen ---------- */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background:
+    radial-gradient(ellipse at 50% 40%, color-mix(in srgb, var(--gold) 14%, transparent), transparent 60%),
+    #0a0a0a;
+  color: var(--gold-light);
+  transition: opacity 0.4s ease;
+}
+
+.loader.loader-hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loader-icon {
+  width: 72px;
+  height: 72px;
+  image-rendering: pixelated;
+  animation: loaderHop 0.9s steps(4) infinite;
+}
+
+@keyframes loaderHop {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+.loader-title {
+  font-size: 1.6rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.loader-title::after {
+  content: "";
+  display: inline-block;
+  width: 1.5em;
+  text-align: left;
+  animation: loaderDots 1.2s steps(4) infinite;
+}
+
+@keyframes loaderDots {
+  0%   { content: ""; }
+  25%  { content: "."; }
+  50%  { content: ".."; }
+  75%  { content: "..."; }
+}
+
+.loader-bar {
+  width: min(320px, 75vw);
+  height: 26px;
+  padding: 4px;
+  border: 4px solid var(--gold);
+  background: #14110a;
+  box-shadow: 0 0 0 4px #0a0a0a, 0 0 0 6px var(--gold-dim), 0 0 18px color-mix(in srgb, var(--gold) 35%, transparent);
+  image-rendering: pixelated;
+}
+
+.loader-fill {
+  width: 0;
+  height: 100%;
+  background: repeating-linear-gradient(90deg, var(--gold-light) 0 10px, var(--gold) 10px 14px, transparent 14px 16px);
+  transition: width 0.2s steps(6);
+}
+
+.loader-pct {
+  font-size: 1.1rem;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+
+.loader-tip {
+  max-width: 80vw;
+  font-size: 1rem;
+  color: var(--gold-dim);
+  text-align: center;
+}
+
+/* ---------- Phones: tapping must not leave hover effects stuck on ---------- */
+@media (hover: none) {
+  .big-btn:hover {
+    transform: none;
+    background: var(--gold);
+  }
+
+  .big-btn.secondary:hover {
+    background: transparent;
+  }
+
+  .big-btn.armed:hover {
+    background: var(--busy);
+  }
+
+  .bg-controls button:hover,
+  .page-link:hover,
+  .pick-row button:hover:not(:disabled),
+  .chip:hover:not(:disabled) {
+    background: rgba(10, 10, 10, 0.9);
+    color: var(--gold-light);
+  }
+
+  .page-link.current,
+  .page-link.current:hover,
+  .pick-row button.armed:hover {
+    background: var(--gold);
+    color: #0a0a0a;
+  }
+
+  .image-link:hover {
+    transform: none;
+    box-shadow: 0 0 10px color-mix(in srgb, var(--gold) 35%, transparent);
+  }
+
+  /* a quick press-in instead, so taps still feel responsive */
+  .big-btn:active,
+  .chip:active,
+  .page-link:active,
+  .bg-controls button:active,
+  .pick-row button:active,
+  .image-link:active {
+    transform: scale(0.95);
   }
 }

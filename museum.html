@@ -15,8 +15,18 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/museum.css">
 <script src="js/theme.js"></script>
+<script src="js/loader.js"></script>
 </head>
 <body class="gallery-page">
+
+<div class="loader" id="loader" role="progressbar" aria-label="Loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+  <img class="loader-icon" src="assets/notes-icon.gif" alt="">
+  <div class="loader-title">Loading</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+  <div class="loader-pct">0%</div>
+  <div class="loader-tip" id="loaderTip">Tip: click any painting to see it up close.</div>
+</div>
+<noscript><style>.loader { display: none; }</style></noscript>
 
 <nav class="gallery-nav" aria-label="Pages">
   <a href="index.html" class="page-link">&larr; Planner</a>
@@ -95,6 +105,7 @@
   </form>
 </dialog>
 
+<script src="js/sfx.js"></script>
 <script src="js/shared.js"></script>
 <script src="js/museum-data.js"></script>
 <script src="js/museum.js"></script>

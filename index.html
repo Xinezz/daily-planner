@@ -16,8 +16,18 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/planner.css">
 <script src="js/theme.js"></script>
+<script src="js/loader.js"></script>
 </head>
 <body>
+
+<div class="loader" id="loader" role="progressbar" aria-label="Loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+  <img class="loader-icon" src="assets/notes-icon.gif" alt="">
+  <div class="loader-title">Loading</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+  <div class="loader-pct">0%</div>
+  <div class="loader-tip" id="loaderTip">Tip: press Today to jump back to today's date.</div>
+</div>
+<noscript><style>.loader { display: none; }</style></noscript>
 
 <nav class="page-nav" aria-label="Other pages">
   <a href="gallery.html" class="image-link" aria-label="Gallery" title="Gallery"><img src="assets/gallery-btn.png" alt="Gallery"></a>

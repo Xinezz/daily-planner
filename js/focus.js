@@ -252,7 +252,8 @@
   function applyBackground() {
     const own = Store.readText(KEYS.ownBackground);
     const shown = own || Store.readText(KEYS.plannerBackground);
-    document.body.style.backgroundImage = shown ? `url("${shown}")` : "";
+    if (shown) document.body.style.setProperty("--page-bg", `url("${shown}")`);
+    else document.body.style.removeProperty("--page-bg");
     document.body.classList.toggle("has-bg", !!shown);
     $("bgResetBtn").hidden = !own;
   }

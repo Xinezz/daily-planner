@@ -97,13 +97,15 @@ const siteFiles = () => {
   return Object.fromEntries(list.map((file) => [file, `content of ${file}`]));
 };
 
+const CACHE = fs.readFileSync(path.join(__dirname, "..", "sw.js"), "utf8").match(/CACHE_NAME = "([^"]+)"/)[1];
+
 const request = (url, method = "GET") => ({ url: new URL(url, "https://site.test/daily-planner/").href, method });
 
 (async () => {
   await test("install saves every site file and activates straight away", async () => {
     const browser = makeBrowser({ files: siteFiles() });
     await browser.dispatch("install");
-    const cache = await browser.caches.open("daily-planner-v1");
+    const cache = await browser.caches.open(CACHE);
     const saved = await cache.keys();
     assert.equal(saved.length, Object.keys(siteFiles()).length);
     assert.equal(browser.state.skipWaiting, 1);
@@ -121,7 +123,7 @@ const request = (url, method = "GET") => ({ url: new URL(url, "https://site.test
     await browser.caches.open("daily-planner-v0");
     await browser.dispatch("install");
     await browser.dispatch("activate");
-    assert.deepEqual(await browser.caches.keys(), ["daily-planner-v1"]);
+    assert.deepEqual(await browser.caches.keys(), [CACHE]);
     assert.equal(browser.state.claimed, 1);
   });
 
@@ -130,7 +132,7 @@ const request = (url, method = "GET") => ({ url: new URL(url, "https://site.test
     const browser = makeBrowser({ files });
     const response = await browser.dispatch("fetch", { request: request("index.html") });
     assert.equal(response.body, "NEW VERSION");
-    const cache = await browser.caches.open("daily-planner-v1");
+    const cache = await browser.caches.open(CACHE);
     assert.equal((await cache.match(request("index.html"))).body, "NEW VERSION");
   });
 

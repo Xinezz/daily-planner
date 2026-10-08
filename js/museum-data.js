@@ -153,6 +153,16 @@ const UPDATE_SEEDS = [
     glyph: "RGB",
     bg: "linear-gradient(135deg, #e8638f, #2ec4d6, #8fd14f)",
   },
+  {
+    id: "up-16-game-night",
+    title: "Game Night",
+    year: "Oct 2026",
+    medium: "Grand Hall and polish",
+    description: "The Grand Hall doors became pixel-art gold frames holding an hourglass and a retro computer, the museums got 8-bit sound effects, every page got a game-style loading screen, and the site was tuned to run smoothly on phones.",
+    link: "gallery.html",
+    image: "assets/door-updates.png",
+    pixel: true,
+  },
 ];
 
 const WINGS = {

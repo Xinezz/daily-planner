@@ -479,7 +479,8 @@
   const bgInput = $("bgInput");
 
   function applyPageBackground(dataUrl) {
-    document.body.style.backgroundImage = dataUrl ? `url("${dataUrl}")` : "";
+    if (dataUrl) document.body.style.setProperty("--page-bg", `url("${dataUrl}")`);
+    else document.body.style.removeProperty("--page-bg");
     document.body.classList.toggle("has-bg", !!dataUrl);
     $("bgResetBtn").hidden = !dataUrl;
   }

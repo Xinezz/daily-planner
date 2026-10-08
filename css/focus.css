@@ -194,3 +194,17 @@
   margin-top: 6px;
   color: var(--gold);
 }
+
+@media (hover: none) {
+  .step-btn:hover,
+  .preset-btn:hover {
+    background: transparent;
+    color: var(--gold-light);
+  }
+
+  .step-btn:active,
+  .preset-btn:active {
+    background: var(--gold);
+    color: #0a0a0a;
+  }
+}
