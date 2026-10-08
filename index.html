@@ -180,6 +180,39 @@
     </label>
   </section>
 
+  <section class="set-group" id="syncPanel">
+    <h3>Cloud sync</h3>
+    <p class="set-note" id="syncStatus" aria-live="polite">Starting cloud sync...</p>
+
+    <div id="syncSignedOut" hidden>
+      <div class="pick-row">
+        <button type="button" id="syncGoogle">Sign in with Google</button>
+      </div>
+      <p class="set-note sync-or">or use an email and password</p>
+      <div class="sync-email">
+        <input type="email" id="syncEmail" class="field" placeholder="Email" autocomplete="email" aria-label="Email">
+        <input type="password" id="syncPassword" class="field" placeholder="Password (at least 6 characters)" autocomplete="current-password" aria-label="Password">
+      </div>
+      <div class="pick-row">
+        <button type="button" id="syncEmailIn">Sign in</button>
+        <button type="button" id="syncEmailNew">Create account</button>
+      </div>
+    </div>
+
+    <div class="pick-row" id="syncSignedIn" hidden>
+      <button type="button" id="syncNowBtn">Sync now</button>
+      <button type="button" id="syncOutBtn">Sign out</button>
+    </div>
+
+    <div id="syncChoose" hidden>
+      <p class="set-note">This device and your cloud copy both already have data. Which one should all your devices use? (The other is replaced, so export a backup first if unsure.)</p>
+      <div class="pick-row">
+        <button type="button" id="syncUseCloud">Use the cloud copy</button>
+        <button type="button" id="syncUseDevice">Use this device's data</button>
+      </div>
+    </div>
+  </section>
+
   <section class="set-group">
     <h3>Backup</h3>
     <p class="set-note">Save everything (tasks, notes, pictures, museum entries, settings) to one file, or restore from one. Your phone and computer keep separate data, so to move it across: export here, send the file to the other device, then import it there.</p>
@@ -199,5 +232,8 @@
 <script src="js/shared.js"></script>
 <script src="js/planner-core.js"></script>
 <script src="js/planner.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/sync-core.js"></script>
+<script src="js/sync.js"></script>
 </body>
 </html>

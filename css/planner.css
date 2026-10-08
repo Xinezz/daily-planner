@@ -806,3 +806,24 @@
   #addTaskBtn:active { transform: scale(0.92); }
   .accent-swatch:hover { transform: none; }
 }
+
+/* ---------- Cloud sync panel ---------- */
+.sync-email {
+  display: grid;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.sync-email .field {
+  padding: 6px 10px;
+  font-size: 1rem;
+}
+
+.sync-or {
+  margin: 10px 0 4px;
+  color: var(--gold-dim);
+}
+
+#syncStatus.is-error {
+  color: #ff8a8a;
+}

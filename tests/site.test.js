@@ -21,10 +21,10 @@ function test(name, fn) {
 }
 
 const pages = {
-  "index.html": ["js/planner.js", "js/shared.js", "js/theme.js"],
-  "focus.html": ["js/focus.js", "js/shared.js", "js/theme.js"],
-  "museum.html": ["js/museum.js", "js/shared.js", "js/theme.js"],
-  "gallery.html": ["js/theme.js"],
+  "index.html": ["js/planner.js", "js/shared.js", "js/theme.js", "js/sync.js"],
+  "focus.html": ["js/focus.js", "js/shared.js", "js/theme.js", "js/sync.js"],
+  "museum.html": ["js/museum.js", "js/shared.js", "js/theme.js", "js/sync.js"],
+  "gallery.html": ["js/theme.js", "js/sync.js"],
 };
 
 const withoutQuery = (url) => url.split("?")[0].split("#")[0];
