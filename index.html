@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="description" content="A gold and black daily planner with a flip calendar, notes, tasks and a focus timer.">
 <title>Daily Planner</title>
@@ -173,6 +174,13 @@
   </section>
 
   <section class="set-group">
+    <h3>Sounds</h3>
+    <label class="switch-row"><span>Soft button sounds (planner and Focus Mode)</span>
+      <input type="checkbox" id="optUiSound">
+    </label>
+  </section>
+
+  <section class="set-group">
     <h3>Backup</h3>
     <p class="set-note">Save everything (tasks, notes, pictures, museum entries, settings) to one file, or restore from one. Your phone and computer keep separate data, so to move it across: export here, send the file to the other device, then import it there.</p>
     <div class="pick-row">
@@ -187,6 +195,7 @@
   <div class="dialog-actions"><button type="button" class="big-btn" data-close="settingsDialog">Done</button></div>
 </dialog>
 
+<script src="js/ui-sound.js"></script>
 <script src="js/shared.js"></script>
 <script src="js/planner-core.js"></script>
 <script src="js/planner.js"></script>

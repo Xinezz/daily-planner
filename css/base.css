@@ -542,3 +542,67 @@ button, a {
     transform: scale(0.95);
   }
 }
+
+/* ---------- Scrollbars: gold pixel blocks on a dark track (follow the outline colour) ---------- */
+/* Firefox can only recolour; other browsers get the full pixel-block design below
+   (setting scrollbar-color there would switch that design off). */
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-color: var(--gold) #0a0a0a;
+  }
+
+  * {
+    scrollbar-color: var(--gold) #14110a;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+  border-left: 2px solid color-mix(in srgb, var(--gold) 30%, transparent);
+}
+
+::-webkit-scrollbar-thumb {
+  background:
+    linear-gradient(90deg, var(--gold-light) 0 3px, var(--gold) 3px calc(100% - 3px), var(--gold-dim) calc(100% - 3px));
+  border: 3px solid #0a0a0a;
+  border-radius: 0;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-light);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: var(--gold-dim);
+}
+
+::-webkit-scrollbar-corner {
+  background: #0a0a0a;
+}
+
+/* thinner inside panels and popups */
+.dialog::-webkit-scrollbar,
+.notes-panel::-webkit-scrollbar,
+.search-results::-webkit-scrollbar {
+  width: 10px;
+}
+
+.dialog::-webkit-scrollbar-track,
+.notes-panel::-webkit-scrollbar-track,
+.search-results::-webkit-scrollbar-track {
+  background: #14110a;
+  border-left: none;
+}
+
+.dialog::-webkit-scrollbar-thumb,
+.notes-panel::-webkit-scrollbar-thumb,
+.search-results::-webkit-scrollbar-thumb {
+  border-width: 2px;
+  border-color: #14110a;
+}

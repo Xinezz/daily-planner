@@ -606,6 +606,7 @@
   $("settingsBtn").addEventListener("click", () => {
     settingsMessage("");
     $("backupStatus").textContent = "";
+    $("optUiSound").checked = UiSound.isEnabled();
     refreshAccentUI();
     refreshSettingsUI();
     $("settingsDialog").showModal();
@@ -767,6 +768,10 @@
     Theme.reset();
     refreshAccentUI();
   });
+
+  /* ---------- Soft button sounds switch ---------- */
+
+  $("optUiSound").addEventListener("change", (event) => UiSound.setEnabled(event.target.checked));
 
   /* ---------- Backup: export and import ---------- */
 

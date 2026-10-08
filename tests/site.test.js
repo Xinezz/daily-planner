@@ -114,6 +114,12 @@ test("the offline file list exists and covers every page, script, style and imag
   }
 });
 
+test("every page asks search engines not to list it", () => {
+  for (const page of Object.keys(pages)) {
+    assert.ok(/<meta name="robots" content="[^"]*noindex/.test(read(page)), `${page} can be indexed`);
+  }
+});
+
 test("a service worker is registered for http(s) only", () => {
   const shared = read("js/shared.js");
   assert.ok(shared.includes('register("sw.js")'));
