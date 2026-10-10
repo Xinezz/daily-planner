@@ -366,9 +366,8 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background:
-    radial-gradient(circle, transparent 0 44px, rgba(255, 255, 255, 0.06) 45px 46px, transparent 47px),
-    repeating-radial-gradient(circle, #121212 0 1.5px, #1e1e1e 1.5px 3px);
+  background-color: #111;
+  background-image: repeating-radial-gradient(circle, #141414 0 1.5px, #1f1f1f 1.5px 3px);
   animation: recordSpin 3.2s linear infinite;
   animation-play-state: paused;
 }
@@ -392,29 +391,8 @@
   height: 56%;
   border-radius: 50%;
   object-fit: cover;
+  background-color: #14110a;
   box-shadow: 0 0 0 2px #0b0b0b;
-}
-
-.record-hole {
-  position: absolute;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: #0b0b0b;
-  box-shadow: 0 0 0 2px var(--gold-dim);
-}
-
-/* light reflection that stays still while the record turns */
-.turntable::after {
-  content: "";
-  position: absolute;
-  left: 17px;
-  top: 17px;
-  width: 154px;
-  height: 154px;
-  border-radius: 50%;
-  background: conic-gradient(from 20deg, transparent 0 20%, rgba(255, 255, 255, 0.08) 25%, transparent 32% 70%, rgba(255, 255, 255, 0.06) 75%, transparent 82%);
-  pointer-events: none;
 }
 
 .spotify-player.is-playing .record {
