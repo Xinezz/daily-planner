@@ -2,7 +2,7 @@
    Strategy: always try the network first (so updates show up), and fall back to the saved copy when offline.
    Bump CACHE_NAME when the list of files below changes. */
 
-const CACHE_NAME = "daily-planner-v10";
+const CACHE_NAME = "daily-planner-v11";
 
 const FILES = [
   "./",
