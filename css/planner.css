@@ -22,11 +22,7 @@
   transition: background 0.4s ease, color 0.4s ease;
 }
 
-.greeting-header.is-weekend {
-  background: var(--weekend);
-  color: var(--cream);
-}
-
+.greeting-header.is-weekend,
 .greeting-header.is-weekday {
   background: var(--weekday);
   color: var(--cream);
