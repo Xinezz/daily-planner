@@ -208,3 +208,416 @@
     color: #0a0a0a;
   }
 }
+
+/* ==========================================================
+   Music player: a little turntable for Spotify
+   ========================================================== */
+
+@keyframes recordSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes playerPop {
+  from { opacity: 0; transform: scale(0.7) translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* the round record button that opens the player */
+.spotify-toggle {
+  position: fixed;
+  left: calc(12px + env(safe-area-inset-left, 0px));
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  z-index: 40;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  border: 3px solid var(--gold);
+  border-radius: 50%;
+  background: #0a0a0a;
+  box-shadow: var(--glow);
+  cursor: pointer;
+}
+
+.mini-record {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, var(--gold) 0 4px, #14110a 4px 9px, var(--gold-dim) 9px 13px, transparent 13px),
+    repeating-radial-gradient(circle, #111 0 2px, #222 2px 4px);
+  animation: recordSpin 3s linear infinite;
+  animation-play-state: paused;
+}
+
+.spotify-toggle.is-playing .mini-record {
+  animation-play-state: running;
+}
+
+/* the player card */
+.spotify-player {
+  position: fixed;
+  left: calc(12px + env(safe-area-inset-left, 0px));
+  bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+  z-index: 45;
+  width: 270px;
+  max-height: calc(100dvh - 110px);
+  overflow-y: auto;
+  padding: 12px 14px 14px;
+  border: 3px solid var(--gold);
+  border-radius: var(--wobble-lg);
+  background: #14110a;
+  box-shadow: 0 0 22px color-mix(in srgb, var(--gold) 30%, transparent), 0 12px 30px rgba(0, 0, 0, 0.7);
+  text-align: center;
+  user-select: none;
+  transform-origin: bottom left;
+  animation: playerPop 0.22s ease-out;
+}
+
+.sp-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.spotify-player.is-dragging {
+  opacity: 0.92;
+}
+
+.spotify-player.is-dragging .sp-head {
+  cursor: grabbing;
+}
+
+.spotify-player.in-pip .sp-head {
+  cursor: default;
+}
+
+@media (max-width: 480px) {
+  .sp-head {
+    cursor: default;
+  }
+}
+
+.sp-heading {
+  font-size: 1.15rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.sp-head-btns {
+  display: flex;
+  gap: 4px;
+}
+
+.sp-icon {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--gold-light);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.sp-icon:hover {
+  background: color-mix(in srgb, var(--gold) 18%, transparent);
+}
+
+/* turntable: a spinning record with the album cover as its label, and a tonearm */
+.turntable {
+  position: relative;
+  width: 210px;
+  height: 190px;
+  margin: 0 auto 10px;
+  border: 3px solid var(--gold-dim);
+  border-radius: var(--wobble-sm);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent 40%),
+    linear-gradient(#3a2716, #1e140b);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.7);
+}
+
+.turntable::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: #0b0b0b;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.7);
+}
+
+.record {
+  position: absolute;
+  left: 17px;
+  top: 17px;
+  width: 154px;
+  height: 154px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, transparent 0 44px, rgba(255, 255, 255, 0.06) 45px 46px, transparent 47px),
+    repeating-radial-gradient(circle, #121212 0 1.5px, #1e1e1e 1.5px 3px);
+  animation: recordSpin 3.2s linear infinite;
+  animation-play-state: paused;
+}
+
+.record::before {
+  content: "";
+  position: absolute;
+  width: 56%;
+  height: 56%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--gold-light), var(--gold) 60%, var(--gold-dim));
+}
+
+.record.has-art::before {
+  display: none;
+}
+
+.record img {
+  position: relative;
+  width: 56%;
+  height: 56%;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 2px #0b0b0b;
+}
+
+.record-hole {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #0b0b0b;
+  box-shadow: 0 0 0 2px var(--gold-dim);
+}
+
+/* light reflection that stays still while the record turns */
+.turntable::after {
+  content: "";
+  position: absolute;
+  left: 17px;
+  top: 17px;
+  width: 154px;
+  height: 154px;
+  border-radius: 50%;
+  background: conic-gradient(from 20deg, transparent 0 20%, rgba(255, 255, 255, 0.08) 25%, transparent 32% 70%, rgba(255, 255, 255, 0.06) 75%, transparent 82%);
+  pointer-events: none;
+}
+
+.spotify-player.is-playing .record {
+  animation-play-state: running;
+}
+
+/* tonearm: rests at the side, swings onto the record while music plays */
+.tonearm {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  z-index: 2;
+  width: 22px;
+  height: 140px;
+  transform-origin: 11px 11px;
+  transform: rotate(0deg);
+  transition: transform 0.7s cubic-bezier(0.4, 1.4, 0.6, 1);
+}
+
+.spotify-player.is-playing .tonearm {
+  transform: rotate(27deg);
+}
+
+.tonearm-base {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f6f0e0 0 3px, var(--gold) 4px 8px, var(--gold-dim) 9px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
+}
+
+.tonearm-stick {
+  position: absolute;
+  left: 9px;
+  top: 11px;
+  width: 4px;
+  height: 112px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #f6f0e0, #b9b2a2);
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+.tonearm-head {
+  position: absolute;
+  left: 5px;
+  top: 118px;
+  width: 12px;
+  height: 18px;
+  border-radius: 2px;
+  background: linear-gradient(var(--gold-light), var(--gold-dim));
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* song details */
+.sp-song {
+  overflow: hidden;
+  font-size: 1.25rem;
+  color: var(--gold-light);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.sp-artist {
+  min-height: 1.3em;
+  overflow: hidden;
+  font-size: 0.95rem;
+  color: var(--gold-dim);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.sp-progress {
+  height: 8px;
+  margin-top: 10px;
+  overflow: hidden;
+  border: 2px solid var(--gold-dim);
+  border-radius: 4px;
+  background: var(--field-bg);
+}
+
+.sp-progress-fill {
+  width: 0;
+  height: 100%;
+  background: var(--gold);
+  transition: width 0.5s linear;
+}
+
+.sp-times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2px;
+  font-size: 0.85rem;
+  color: var(--gold-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.sp-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.sp-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--gold-light);
+  cursor: pointer;
+  transition: transform 0.1s ease, background-color 0.1s ease;
+}
+
+.sp-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.sp-btn.sp-play {
+  width: 56px;
+  height: 56px;
+  background: var(--gold);
+  color: #0a0a0a;
+}
+
+.sp-btn.sp-play svg {
+  width: 26px;
+  height: 26px;
+}
+
+.sp-btn:active:not(:disabled) {
+  transform: scale(0.9);
+}
+
+.sp-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+@media (hover: hover) {
+  .sp-btn:hover:not(:disabled) {
+    background-color: color-mix(in srgb, var(--gold) 20%, transparent);
+  }
+
+  .sp-btn.sp-play:hover:not(:disabled) {
+    background-color: var(--gold-light);
+  }
+}
+
+.sp-message {
+  margin: 10px 0 0;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  color: #ffb4a8;
+}
+
+.sp-connect {
+  margin-top: 10px;
+}
+
+.sp-connect .big-btn {
+  min-width: 0;
+  padding: 6px 18px;
+  font-size: 1.1rem;
+}
+
+.sp-link {
+  margin-top: 8px;
+  border: none;
+  background: transparent;
+  color: var(--gold-dim);
+  font-size: 0.85rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* when popped out into its own always-on-top window */
+.pip-body {
+  margin: 0;
+  background: #0a0a0a;
+}
+
+.spotify-player.in-pip {
+  position: static;
+  width: auto;
+  max-height: none;
+  margin: 8px;
+  animation: none;
+}
+
+@media (max-width: 480px) {
+  .spotify-player:not(.in-pip) {
+    right: calc(12px + env(safe-area-inset-right, 0px));
+    width: auto;
+  }
+}

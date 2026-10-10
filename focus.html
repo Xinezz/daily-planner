@@ -100,10 +100,55 @@
 
 </main>
 
+<button type="button" class="spotify-toggle" id="spotifyToggle" aria-label="Open music player" aria-expanded="false" aria-controls="spotifyPlayer">
+  <span class="mini-record" aria-hidden="true"></span>
+</button>
+
+<section class="spotify-player" id="spotifyPlayer" aria-label="Music player" hidden>
+  <div class="sp-head">
+    <span class="sp-heading">Now playing</span>
+    <div class="sp-head-btns">
+      <button type="button" class="sp-icon" id="spotifyPopOut" title="Pop out into its own window" aria-label="Pop out into its own window" hidden>&#x29C9;</button>
+      <button type="button" class="sp-icon" id="spotifyClose" title="Close" aria-label="Close music player">&times;</button>
+    </div>
+  </div>
+
+  <div class="turntable">
+    <div class="record" id="spRecord">
+      <img id="spArt" alt="" hidden>
+      <span class="record-hole"></span>
+    </div>
+    <div class="tonearm" aria-hidden="true">
+      <span class="tonearm-base"></span>
+      <span class="tonearm-stick"></span>
+      <span class="tonearm-head"></span>
+    </div>
+  </div>
+
+  <div class="sp-song" id="spSong">Nothing playing</div>
+  <div class="sp-artist" id="spArtist"></div>
+
+  <div class="sp-progress"><div class="sp-progress-fill" id="spProgress"></div></div>
+  <div class="sp-times"><span id="spElapsed">0:00</span><span id="spDuration">0:00</span></div>
+
+  <div class="sp-controls">
+    <button type="button" class="sp-btn" id="spPrev" aria-label="Previous song"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+    <button type="button" class="sp-btn sp-play" id="spPlay" aria-label="Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg></button>
+    <button type="button" class="sp-btn" id="spNext" aria-label="Next song"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+  </div>
+
+  <p class="sp-message" id="spMessage" role="status" hidden></p>
+  <div class="sp-connect" id="spConnectRow" hidden><button type="button" class="big-btn" id="spConnect">Connect Spotify</button></div>
+  <button type="button" class="sp-link" id="spDisconnect" hidden>Disconnect Spotify</button>
+</section>
+
 <script src="js/ui-sound.js"></script>
 <script src="js/shared.js"></script>
 <script src="js/planner-core.js"></script>
 <script src="js/focus.js"></script>
+<script src="js/spotify-config.js"></script>
+<script src="js/spotify-core.js"></script>
+<script src="js/spotify.js"></script>
 <script src="js/firebase-config.js"></script>
 <script src="js/sync-core.js"></script>
 <script src="js/sync.js"></script>
